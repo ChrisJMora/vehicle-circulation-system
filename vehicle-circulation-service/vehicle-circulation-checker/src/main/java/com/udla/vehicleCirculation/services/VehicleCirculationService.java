@@ -1,6 +1,5 @@
 package com.udla.vehicleCirculation.services;
 
-
 import com.udla.vehicleCirculation.domain.CirculationRestrictionRule;
 import com.udla.vehicleCirculation.domain.FutureDateValidator;
 import com.udla.vehicleCirculation.models.VehicleCheckInput;
@@ -31,23 +30,38 @@ public class VehicleCirculationService {
 
     /**
      * Verifica si el vehículo con los datos dados puede circular.
+     * Captura errores de validación para evitar excepciones no manejadas.
      *
      * @param input modelo interno con placa y fecha/hora
-     * @return resultado del chequeo
+     * @return resultado del chequeo con mensaje y estado
      */
     public VehicleCheckResult checkRestriction(VehicleCheckInput input) {
-        dateValidator.validateNotInPast(input.getDateTime());
+        try {
+            dateValidator.validateNotInPast(input.getDateTime());
 
-        boolean restricted = restrictionRule.isRestricted(input.getLicensePlate(), input.getDateTime());
+            boolean restricted = restrictionRule.isRestricted(input.getLicensePlate(), input.getDateTime());
 
-        String message = restricted
-                ? "El vehículo NO puede circular en la fecha y hora ingresadas."
-                : "El vehículo PUEDE circular en la fecha y hora ingresadas.";
+            String message = restricted
+                    ? "El vehículo NO puede circular en la fecha y hora ingresadas."
+                    : "El vehículo PUEDE circular en la fecha y hora ingresadas.";
 
-        return new VehicleCheckResult(
-                input.getLicensePlate(),
-                !restricted,
-                message
-        );
+            return new VehicleCheckResult(
+                    input.getLicensePlate(),
+                    !restricted,
+                    message
+            );
+        } catch (IllegalArgumentException ex) {
+            return new VehicleCheckResult(
+                    input.getLicensePlate(),
+                    false,
+                    ex.getMessage()
+            );
+        } catch (Exception ex) {
+            return new VehicleCheckResult(
+                    input.getLicensePlate(),
+                    false,
+                    "Error inesperado: " + ex.getMessage()
+            );
+        }
     }
 }
