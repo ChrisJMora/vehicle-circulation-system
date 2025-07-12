@@ -15,6 +15,10 @@ El Sistema de Circulación Vehicular permite a los usuarios consultar si un veh�
 - **Backend (Spring Boot)**: API REST que procesa las reglas de circulación.
 - **Comunicación**: Conexión HTTP/REST entre frontend y backend.
 
+## Diseño de Clases para el Backend
+
+<img width="2535" height="1081" alt="image" src="https://github.com/user-attachments/assets/18c380ba-09ca-4ff8-911c-e9f2fd492f01" />
+
 ## Componentes del Sistema
 
 ### 1. Vehicle Circulation App (Frontend)
