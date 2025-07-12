@@ -1,42 +1,44 @@
 # See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
 
 # Compiled output
-/dist
-/tmp
-/out-tsc
-/bazel-out
+vehicle-circulation-system/dist
+vehicle-circulation-system/tmp
+vehicle-circulation-system/out-tsc
+vehicle-circulation-system/bazel-out
 
 # Node
-/node_modules
-npm-debug.log
-yarn-error.log
+vehicle-circulation-system/node_modules
+vehicle-circulation-system/npm-debug.log
+vehicle-circulation-system/yarn-error.log
 
 # IDEs and editors
-.idea/
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
+vehicle-circulation-system/.idea/
+vehicle-circulation-system/.project
+vehicle-circulation-system/.classpath
+vehicle-circulation-system/.c9/
+vehicle-circulation-system/*.launch
+vehicle-circulation-system/.settings/
+vehicle-circulation-system/*.sublime-workspace
 
 # Visual Studio Code
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-.history/*
+vehicle-circulation-system/.vscode/*
+!vehicle-circulation-system/.vscode/settings.json
+!vehicle-circulation-system/.vscode/tasks.json
+!vehicle-circulation-system/.vscode/launch.json
+!vehicle-circulation-system/.vscode/extensions.json
+vehicle-circulation-system/.history/*
 
 # Miscellaneous
-/.angular/cache
-.sass-cache/
-/connect.lock
-/coverage
-/libpeerconnection.log
-testem.log
-/typings
+vehicle-circulation-system/.angular/cache
+vehicle-circulation-system/.sass-cache/
+vehicle-circulation-system/connect.lock
+vehicle-circulation-system/coverage
+vehicle-circulation-system/libpeerconnection.log
+vehicle-circulation-system/testem.log
+vehicle-circulation-system/typings
 
 # System files
-.DS_Store
-Thumbs.db
+vehicle-circulation-system/.DS_Store
+vehicle-circulation-system/Thumbs.db
+vehicle-circulation-app/.angular/cache/19.2.15/vehicle-circulation-app
+vehicle-circulation-app/node_modules

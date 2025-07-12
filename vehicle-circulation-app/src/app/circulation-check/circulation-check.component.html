@@ -1,0 +1,25 @@
+<h2>Verificar circulación vehicular</h2>
+
+<form (ngSubmit)="onSubmit()">
+  <label>Placa:</label>
+  <input type="text" [(ngModel)]="request.licensePlate" name="licensePlate" required />
+
+  <label>Fecha:</label>
+  <input type="date" [(ngModel)]="request.date" name="date" required />
+
+  <label>Hora:</label>
+  <input type="time" [(ngModel)]="request.time" name="time" required />
+
+  <button type="submit">Consultar</button>
+</form>
+
+<div *ngIf="response">
+  <h3>Resultado:</h3>
+  <p><strong>Placa:</strong> {{ response?.licensePlate }}</p>
+  <p><strong>Mensaje:</strong> {{ response?.message }}</p>
+  <p><strong>¿Puede circular?:</strong> {{ response?.allowedToCirculate ? 'Sí' : 'No' }}</p>
+</div>
+
+<div *ngIf="error" style="color: red;">
+  {{ error }}
+</div>
