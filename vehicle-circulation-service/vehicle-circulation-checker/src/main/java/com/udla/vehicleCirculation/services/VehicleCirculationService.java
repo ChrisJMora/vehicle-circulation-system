@@ -5,11 +5,13 @@ import com.udla.vehicleCirculation.domain.CirculationRestrictionRule;
 import com.udla.vehicleCirculation.domain.FutureDateValidator;
 import com.udla.vehicleCirculation.models.VehicleCheckInput;
 import com.udla.vehicleCirculation.models.VehicleCheckResult;
+import org.springframework.stereotype.Service;
 
 /**
  * Servicio que contiene la lógica de aplicación para verificar
  * si un vehículo puede circular en una fecha y hora determinadas.
  */
+@Service
 public class VehicleCirculationService {
 
     private final CirculationRestrictionRule restrictionRule;
@@ -44,7 +46,7 @@ public class VehicleCirculationService {
 
         return new VehicleCheckResult(
                 input.getLicensePlate(),
-                restricted,
+                !restricted,
                 message
         );
     }
