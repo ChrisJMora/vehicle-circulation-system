@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
  * Controlador REST que permite consultar si un vehículo
  * puede circular en una fecha y hora determinada.
  */
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/circulation")
 public class VehicleCirculationController {

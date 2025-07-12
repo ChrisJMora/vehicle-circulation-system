@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { CirculationCheckComponent } from './circulation-check/circulation-check.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  standalone: true,
+  imports: [
+    HttpClientModule,
+    CirculationCheckComponent
+  ],
+  template: `<app-circulation-check></app-circulation-check>`,
 })
-export class AppComponent {
-  title = 'vehicle-circulation-app';
-}
+export class AppComponent {}
