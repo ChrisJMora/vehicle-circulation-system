@@ -4,12 +4,14 @@ import com.udla.vehicleCirculation.models.VehicleCirculationRequest;
 import com.udla.vehicleCirculation.models.VehicleCirculationResponse;
 import com.udla.vehicleCirculation.models.VehicleCheckInput;
 import com.udla.vehicleCirculation.models.VehicleCheckResult;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
 /**
  * Mapper encargado de convertir entre los DTOs y los modelos internos del sistema.
  */
+@Service
 public class VehicleCirculationMapper {
 
     /**
