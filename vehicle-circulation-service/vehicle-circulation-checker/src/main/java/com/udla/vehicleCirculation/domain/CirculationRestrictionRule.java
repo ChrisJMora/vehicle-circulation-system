@@ -1,11 +1,14 @@
 package com.udla.vehicleCirculation.domain;
 
+import org.springframework.stereotype.Component;
+
 import java.time.LocalDateTime;
 
 /**
  * Contiene la lógica de negocio para determinar si un vehículo
  * tiene restricción de circulación en una fecha y hora determinadas.
  */
+@Component
 public class CirculationRestrictionRule {
 
     /**
