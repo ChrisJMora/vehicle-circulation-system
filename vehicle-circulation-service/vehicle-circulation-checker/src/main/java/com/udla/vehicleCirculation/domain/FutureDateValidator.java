@@ -1,10 +1,13 @@
 package com.udla.vehicleCirculation.domain;
 
+import org.springframework.stereotype.Component;
+
 import java.time.LocalDateTime;
 
 /**
  * Valida que una fecha y hora no esté en el pasado.
  */
+@Component
 public class FutureDateValidator {
 
     /**
