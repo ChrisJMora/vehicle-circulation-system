@@ -1,0 +1,134 @@
+@startuml VehicleCirculationSystem
+
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam classFontStyle bold
+
+package "Application Layer" {
+    class VehicleCirculationCheckerApplication {
+        +main(String[] args): void
+    }
+}
+
+package "Controller Layer" {
+    class VehicleCirculationController {
+        -service: VehicleCirculationService
+        -mapper: VehicleCirculationMapper
+        +VehicleCirculationController(service, mapper)
+        +checkVehicleCirculationStatus(request): ResponseEntity<VehicleCirculationResponse>
+    }
+}
+
+package "Service Layer" {
+    class VehicleCirculationService {
+        -restrictionRule: CirculationRestrictionRule
+        -dateValidator: FutureDateValidator
+        +VehicleCirculationService(restrictionRule, dateValidator)
+        +checkRestriction(input): VehicleCheckResult
+    }
+    
+    class VehicleCirculationMapper {
+        +toDomainModel(request): VehicleCheckInput
+        +toDto(result): VehicleCirculationResponse
+    }
+}
+
+package "Domain Layer" {
+    class CirculationRestrictionRule {
+        +isRestricted(licensePlate, dateTime): boolean
+        -getLastDigit(plate): Integer
+    }
+    
+    class FutureDateValidator {
+        +validateNotInPast(dateTime): void
+    }
+    
+    enum RestrictedDay {
+        MONDAY(List.of(1, 2))
+        TUESDAY(List.of(3, 4))
+        WEDNESDAY(List.of(5, 6))
+        THURSDAY(List.of(7, 8))
+        FRIDAY(List.of(9, 0))
+        -restrictedDigits: List<Integer>
+        +isDigitRestricted(digit): boolean
+        +from(date): RestrictedDay
+        +getRestrictedHours(): List<Integer>
+    }
+}
+
+package "Model Layer" {
+    class VehicleCirculationRequest {
+        -licensePlate: String
+        -date: LocalDate
+        -time: LocalTime
+        +getLicensePlate(): String
+        +setLicensePlate(String): void
+        +getDate(): LocalDate
+        +setDate(LocalDate): void
+        +getTime(): LocalTime
+        +setTime(LocalTime): void
+    }
+    
+    class VehicleCirculationResponse {
+        -licensePlate: String
+        -message: String
+        -isAllowedToCirculate: boolean
+        +VehicleCirculationResponse()
+        +VehicleCirculationResponse(licensePlate, message, isAllowedToCirculate)
+        +getLicensePlate(): String
+        +setLicensePlate(String): void
+        +getMessage(): String
+        +setMessage(String): void
+        +isAllowedToCirculate(): boolean
+        +setAllowedToCirculate(boolean): void
+    }
+    
+    class VehicleCheckInput {
+        -licensePlate: String
+        -dateTime: LocalDateTime
+        +VehicleCheckInput(licensePlate, dateTime)
+        +getLicensePlate(): String
+        +getDateTime(): LocalDateTime
+    }
+    
+    class VehicleCheckResult {
+        -licensePlate: String
+        -allowed: boolean
+        -message: String
+        +VehicleCheckResult(licensePlate, allowed, message)
+        +getLicensePlate(): String
+        +isAllowed(): boolean
+        +getMessage(): String
+    }
+}
+
+' Relationships
+VehicleCirculationController --> VehicleCirculationService : uses
+VehicleCirculationController --> VehicleCirculationMapper : uses
+VehicleCirculationController --> VehicleCirculationRequest : receives
+VehicleCirculationController --> VehicleCirculationResponse : returns
+
+VehicleCirculationService --> CirculationRestrictionRule : uses
+VehicleCirculationService --> FutureDateValidator : uses
+VehicleCirculationService --> VehicleCheckInput : receives
+VehicleCirculationService --> VehicleCheckResult : returns
+
+VehicleCirculationMapper --> VehicleCirculationRequest : transforms
+VehicleCirculationMapper --> VehicleCheckInput : creates
+VehicleCirculationMapper --> VehicleCheckResult : transforms
+VehicleCirculationMapper --> VehicleCirculationResponse : creates
+
+CirculationRestrictionRule --> RestrictedDay : uses
+
+' Annotations
+note top of VehicleCirculationController : @RestController\n@RequestMapping("/api/circulation")\n@CrossOrigin
+note top of VehicleCirculationService : @Service
+note top of VehicleCirculationMapper : @Service
+note top of CirculationRestrictionRule : @Component
+note top of FutureDateValidator : @Component
+note top of VehicleCirculationCheckerApplication : @SpringBootApplication
+
+' Validation annotations
+note right of VehicleCirculationRequest : @NotBlank licensePlate\n@NotNull date\n@NotNull time
+
+@enduml
